@@ -1,0 +1,13 @@
+* {
+  font: 1em lighter "Didact Gothic", "Helvetica Neue", sans-serif;
+  background-color: black;
+}
+
+h1 {
+  color: lightgrey;
+}
+
+.left-hand {
+  background-color: black;
+  border: thin solid #00ffff;
+}
