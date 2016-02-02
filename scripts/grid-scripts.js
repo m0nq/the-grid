@@ -14,5 +14,6 @@ $(function main () {
     // draw an individual canvas element width="134" height="134"
       // make background black (000000) and borders pink (ff00ff)
 
-
+  // when player places an object
+    // check to see if each row, column, and centered diagonal adds up to (the constant, or the same number)
 });
