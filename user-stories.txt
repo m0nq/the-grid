@@ -1,0 +1,1 @@
+As a player, I want to arrange the numbers [1...n^2] in such as way that each row, column, and center aligned diagonal sums to the same constant.
