@@ -2,7 +2,9 @@ $(function main () {
   
   // draw the grid on the left hand side of the page.
     // draw an individual canvas element width="134" height="134"
-      // make background black (000000) and borders cyan (00ffff)
+      $('.droppable').droppable({
+        tolerance: "pointer"
+      });
     // get the newly made canvas context object.
     // place it at (858, 568) on page.
     // if there is already a canvas object at that location, add x value by 134 & place there.
