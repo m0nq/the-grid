@@ -1,21 +1,64 @@
 $(function main () {
+  debugger;
+  // grid width and height
+  var GRIDWIDTH = 402;
+  var GRIDHEIGHT = 402;
+
+  // constant summed value of an nxn grid
+  var GRIDCONSTANT = 3 * ((Math.pow(3, 2) + 1)/2);
+
+  initializeCells();
   
-  // draw the grid on the left hand side of the page.
-    // draw an individual canvas element width="134" height="134"
-      $('.droppable').droppable({
-        tolerance: "pointer"
-      });
-    // get the newly made canvas context object.
-    // place it at (858, 568) on page.
-    // if there is already a canvas object at that location, add x value by 134 & place there.
-      // if x value is greater than 1126
-        // then increase y value by 134 and try again.
-        // do this 9x.
+  // make each grid cell droppable.
+  $('.droppable').droppable({
+    tolerance: "pointer",
+    // when player places an object
+    // replace the value from the draggable cell.
+    drop: function drop ($event, $ui) {
+      // get the number value associated with ui draggable object, convert it to a number.
+      $(this).html(Number($ui.attr('id')));
 
-  // draw the numeral objects in a random pile on the right side of the page (no where less than the window divided in half)
-    // draw an individual canvas element width="134" height="134"
-      // make background black (000000) and borders pink (ff00ff)
-
-  // when player places an object
-    // check to see if each row, column, and centered diagonal adds up to (the constant, or the same number)
+      // check to see if each row, column, and centered diagonal adds up to (the constant, or the same number)
+      gridSums();
+    }
+  });
 });
+
+// draw the numeral objects in a random pile on the right side of the page (no where less than the window divided in half, & 150px or greater)
+  
+// initialize cell objects on the page.
+function initializeCells() {
+
+  for (var i = 0; i < 9; i++) {
+    // draw an individual canvas element
+    // create a div
+    var $div = $('<div>');
+
+    // set it's class attribute to draggable
+    $div.attr('class', 'draggable');
+
+    // add an indexed id of the cooresponding numeral value
+    $div.attr('id', (i + 1));
+
+    // set its html value to the index
+    $div.html(i + 1);
+
+    // place within the document.
+    $('body').append($div);
+  }
+   
+  $('.draggable').draggable({
+    snap: true,
+    snapMode: "inner",
+    snapTolerance: 20
+  });
+}
+
+// when player moves an object out of an already snapped element
+  // set the value of the droppable cell to zero.
+
+// set cell value function
+
+// get cell value function
+
+// check the sums of the grid

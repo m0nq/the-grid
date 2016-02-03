@@ -1,3 +1,8 @@
+/*
+  make droppable values invisible
+  add css styling for the draggable cells
+*/
+
 body {
   font-family: Helvetica, sans-serif;
   font-weight: lighter;
@@ -37,6 +42,15 @@ hr {
 
 .droppable {
   background-color: rgba(104, 104, 104, .25);
+  color: rgba(104, 104, 104, .25);
+}
+
+.draggable {
+  background-color: rgba(104, 104, 104, .25);
+  height: 132px;
+  width: 132px;
+  z-index: 50;
+  border: 1px solid #ff00ff;
 }
 
 #colOne {
