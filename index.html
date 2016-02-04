@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>The Grid</title>
     <link rel="stylesheet" type="text/css" href="styles/reset.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="styles/grid-theme.css">
   </head>
   <body>
@@ -17,19 +18,19 @@
     <!-- draw an individual canvas element width="134" height="134" -->
     <div class="container" id="grid"><!-- group -->
       <div class="column" id="colOne"><!-- left column -->
-        <div class="droppable" id="topLeft">0<!-- (1, 1) --></div>
-        <div class="droppable" id="middleLeft">0<!-- (1, 2) --></div>
-        <div class="droppable" id="bottomLeft">0<!-- (1, 3) --></div>
+        <div class="gridCell" id="topLeft">0<!-- (1, 1) --></div>
+        <div class="gridCell" id="middleLeft">0<!-- (1, 2) --></div>
+        <div class="gridCell" id="bottomLeft">0<!-- (1, 3) --></div>
       </div>
       <div class="column" id="colTwo"><!-- middle column -->
-        <div class="droppable" id="topCenter">0<!-- (2, 1) --></div>
-        <div class="droppable" id="middleCenter">0<!-- (2, 2) --></div>
-        <div class="droppable" id="bottomCenter">0<!-- (2, 3) --></div>
+        <div class="gridCell" id="topCenter">0<!-- (2, 1) --></div>
+        <div class="gridCell" id="middleCenter">0<!-- (2, 2) --></div>
+        <div class="gridCell" id="bottomCenter">0<!-- (2, 3) --></div>
       </div>
       <div class="column" id="colThree"><!-- right column -->
-        <div class="droppable" id="topRight">0<!-- (3, 1) --></div>
-        <div class="droppable" id="middleRight">0<!-- (3, 2) --></div>
-        <div class="droppable" id="bottomRight">0<!-- (3, 3) --></div>
+        <div class="gridCell" id="topRight">0<!-- (3, 1) --></div>
+        <div class="gridCell" id="middleRight">0<!-- (3, 2) --></div>
+        <div class="gridCell" id="bottomRight">0<!-- (3, 3) --></div>
       </div>
     </div>
     

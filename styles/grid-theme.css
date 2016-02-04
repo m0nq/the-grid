@@ -1,10 +1,10 @@
 /*
-  make droppable values invisible
-  add css styling for the draggable cells
+  make gridCell values invisible
+  add css styling for the draggable gridCells
 */
 
 body {
-  font-family: Helvetica, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: lighter;
   background-color: black;
   background-image: url('../assets/456503.png');
@@ -40,17 +40,20 @@ hr {
   float: left;
 }
 
-.droppable {
+.gridCell {
   background-color: rgba(104, 104, 104, .25);
-  color: rgba(104, 104, 104, .25);
+  color: rgba(104, 104, 104, 0);
 }
 
 .draggable {
-  background-color: rgba(104, 104, 104, .25);
+  background-color: rgba(104, 104, 104, .1);
   height: 132px;
   width: 132px;
   z-index: 50;
   border: 1px solid #ff00ff;
+  color: white;
+  font-size: 3em;
+  text-align: center;
 }
 
 #colOne {
