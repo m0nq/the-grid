@@ -3,6 +3,9 @@ $(function main () {
   var GRIDWIDTH = 402;
   var GRIDHEIGHT = 402;
 
+  // 
+  var cellContent;
+
   // id locations of each position to sum
   var rows = [
     ["#topLeft", "#topCenter", "#topRight"],
@@ -27,80 +30,149 @@ $(function main () {
   // make each grid gridCell.
   $('.gridCell').draggable({
     snap: "#" + $(this).attr('id'),
-    snapTolerance: 200,
-    cancel: "#grid"
-    });
-});
-
-// draw the numeral objects in a random pile on the right side of the page (no where less than the window divided in half, & 150px or greater)
-  
-// initialize gridCell objects on the page.
-function initializegridCells() {
-
-  for (var i = 0; i < 9; i++) {
-    // draw an individual canvas element
-    // create a div
-    var $div = $('<div>');
-
-    // set it's class attribute to draggable
-    // add an indexed id of the cooresponding numeral value
-    $div.attr('class', 'draggable').attr('id', (i + 1)).html(i + 1);
-
-    // set its html value to the index
-    // $div.html(i + 1);
-
-    // place within the document.
-    $('body').append($div);
-
-    // place element randomly within a specified region
-    randomPlacement("#" + (i + 1));
-  }
-
-  // do the html swapping here
-  $('.draggable').draggable({
-    cursor: 'move',
-    snap: true,
-    snapMode: "inner",
-    stop: stop,
-    start: start
+    snapTolerance: 2000,
+    cancel: ".gridCell"
   });
-}
 
-// String -> Void
-// calculate the location vector muliplied by a random scalar
-function randomPlacement (id) {
-  var randomtop = Math.floor(Math.random() * (window.innerHeight/2 - 650));
-  var randomleft = (468/2) + Math.floor(Math.random() * (window.innerWidth/24 + 500));
-  
-  $(id).css({
-    "margin-top": randomtop,
-    "margin-left": randomleft
-  });
-}
+  // draw the numeral objects in a random pile on the right side of the page (no where less than the window divided in half, & 150px or greater)
+    
+  // initialize gridCell objects on the page.
+  function initializegridCells() {
 
-// $eventObject, $UIObject -> Void
-// determines what the cell should do once stopped on a grid element
-function stop ($event, $ui) {
-  // when player places (stops) an object
-      // replace the value from the draggable gridCell.
+    for (var i = 0; i < 9; i++) {
+      // draw an individual canvas element
+      // create a div
+      var $div = $('<div>');
 
-      // get the number value associated with ui draggable object, convert it to a number
-      
-      // update the object dropped on with the numberValue
+      // set it's class attribute to draggable
+      // add an indexed id of the cooresponding numeral value
+      $div.attr('class', 'draggable').attr('id', (i + 1)).html(i + 1);
 
-      // check to see if each row, column, and centered diagonal adds up to (the constant, or the same number)
-      // gridSums();
-}
+      // set its html value to the index
+      // $div.html(i + 1);
 
-// $eventObject, $UIObject -> Void
-// determines what the cell should do once it moves off a grid element
-function start ($event, $ui) {
-      // when player moves an object out of an already snapped element
-      // set the value of the gridCell to zero.
+      // place within the document.
+      $('#outside').append($div);
 
-      // set gridCell value
+      // place element randomly within a specified region
+      randomPlacement("#" + (i + 1));
     }
 
-// get gridCell value function
+    // do the html swapping here
+    $('.draggable').draggable({
+      cursor: 'move',
+      snap: '.gridCell',
+      snapMode: "inner",
+      drag: function () {
+        
+        var $self = $(this);
 
-// check the sums of the grid
+        /* Get the possible snap targets: */
+        var snapped = $self.data('ui-draggable').snapElements;
+     
+        /* Pull out only the snap targets that are "snapping": */
+        var snappedTo = snapped.map(function(element) {
+          return element.snapping ? element.item : null;
+        });
+
+        snappedTo.forEach(function (snappedElement) {
+
+          if (snappedElement) {
+            if ($self[0].getBoundingClientRect().left === snappedElement.getBoundingClientRect().left && $self[0].getBoundingClientRect().top === snappedElement.getBoundingClientRect().top) {
+              // replace the value from the draggable gridCell.
+              snappedElement.innerText = $self[0].innerText; 
+              gridSums();
+            }
+          }
+        });
+      }
+    });
+  }
+
+  // String -> Void
+  // calculate the location vector muliplied by a random scalar
+  function randomPlacement (id) {
+    var randomtop = Math.floor(Math.random() * (window.innerHeight/2 - 650));
+    var randomleft = (468/2) + Math.floor(Math.random() * (window.innerWidth/24 + 500));
+    
+    $(id).css({
+      "margin-top": randomtop,
+      "margin-left": randomleft
+    });
+  }
+
+  // Void -> Void
+  // check the sums of the grid
+  function gridSums () {
+    
+    var topRow;
+    var middleRow;
+    var bottomRow;
+    var leftColumn;
+    var centerColumn;
+    var rightColumn;
+    var diagonal1;
+    var diaongal2;
+
+    topRow = calculate(rows[0]);
+
+    middleRow = calculate(rows[1]);
+
+    bottomRow = calculate(rows[2]);
+
+    leftColumn = calculate(columns[0]);
+    
+    centerColumn = calculate(columns[1]);
+
+    rightColumn = calculate(columns[2]);
+
+    diagonal1 = calculate(diagonals[0]);
+
+    diagonal2 = calculate(diagonals[1]);
+
+    // if they all equal each other, than the player wins
+    if (equalsConstant(topRow, middleRow, bottomRow, leftColumn, centerColumn, rightColumn, diagonal1, diagonal2)) {
+
+      winScreen();
+    }
+  }
+
+  function equalsConstant () {
+    var flag = false;
+    var i = 0;
+    var argLen = arguments.length;
+
+    while (i < argLen) {
+      if (arguments[i] !== GRIDCONSTANT) {
+        return false;
+      } else {
+        flag = true;
+        i++;
+      }
+    }
+    return flag;
+  }
+
+  /*function eachArrayElement (twoDeeArr) {
+    var runningTotal = 0;
+    twoDeeArr.forEach(function (array) {
+      runningTotal = calculate(array);
+    });
+    return runningTotal;
+  }*/
+
+  // Array -> Number
+  function calculate (array) {
+    var runningTotal = 0;
+    array.forEach(function (id) {
+      runningTotal += Number($(id).html());
+    });
+    return runningTotal;
+  }
+
+  function winScreen () {
+    $(function() {
+      $( "#dialog" ).dialog();
+    });
+  }
+});
