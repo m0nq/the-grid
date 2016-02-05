@@ -29,6 +29,13 @@ hr {
   background-color: white;
 }
 
+#dialog {
+  width: 20%;
+  color: white;
+  text-align: center;
+  visibility: hidden;
+}
+
 .container {
   margin-left: 3%;
   width: 402px;
@@ -99,37 +106,32 @@ hr {
   border: 1px solid #00FFFF;
 }
 
-#bottomCenter
-{
+#bottomCenter {
   z-index: 5;
   width: 132px;
   height: 132px;
   border: 1px solid #00FFFF;
 }
 
-#colThree
-{
+#colThree {
   margin: 20% -10000px 0 374px;
 }
 
-#topRight
-{
+#topRight {
   z-index: 10;
   width: 132px;
   height: 132px;
   border: 1px solid #00FFFF;
 }
 
-#middleRight
-{
+#middleRight {
   z-index: 9;
   width: 132px;
   height: 132px;
   border: 1px solid #00FFFF;
 }
 
-#bottomRight
-{
+#bottomRight {
   z-index: 8;
   width: 132px;
   height: 132px;

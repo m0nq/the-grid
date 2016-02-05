@@ -29,9 +29,9 @@ $(function main () {
   
   // make each grid gridCell.
   $('.gridCell').draggable({
-    snap: "#" + $(this).attr('id'),
-    snapTolerance: 2000,
-    cancel: ".gridCell"
+    'snap': "#" + $(this).attr('id'),
+    'snapTolerance': 2000,
+    'cancel': ".gridCell"
   });
 
   // draw the numeral objects in a random pile on the right side of the page (no where less than the window divided in half, & 150px or greater)
@@ -60,9 +60,9 @@ $(function main () {
 
     // do the html swapping here
     $('.draggable').draggable({
-      cursor: 'move',
-      snap: '.gridCell',
-      snapMode: "inner",
+      'cursor': 'move',
+      'snap': '.gridCell',
+      'snapMode': "inner",
       drag: function () {
         
         var $self = $(this);
@@ -153,14 +153,6 @@ $(function main () {
     return flag;
   }
 
-  /*function eachArrayElement (twoDeeArr) {
-    var runningTotal = 0;
-    twoDeeArr.forEach(function (array) {
-      runningTotal = calculate(array);
-    });
-    return runningTotal;
-  }*/
-
   // Array -> Number
   function calculate (array) {
     var runningTotal = 0;
@@ -171,8 +163,6 @@ $(function main () {
   }
 
   function winScreen () {
-    $(function() {
-      $( "#dialog" ).dialog();
-    });
+    alert("You got it! Congratulations. You're smart and stuff... o(^_-)O");
   }
 });
