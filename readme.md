@@ -9,7 +9,7 @@ The object of the game is to arrange the given set of numbers in such a way on t
   - Make the sensitivity of the draggable objects better so that they don't conflict with interacting the background grid.
 
 ##Technologies used:
-HTML5
-CSS3
-JavaScript (ES5)
-jQuery + UI pluggins
+- HTML5
+- CSS3
+- JavaScript (ES5)
+- jQuery + UI pluggins
