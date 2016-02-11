@@ -1,9 +1,13 @@
+// Hey Monq, Great job on your project! Overall you made something that works
+// is cool, and looks great! I left comments in your code for code review:
+
 $(function main () {
+  // nice use of constants :)
   // grid width and height
   var GRIDWIDTH = 402;
   var GRIDHEIGHT = 402;
 
-  // 
+  //
   var cellContent;
 
   // id locations of each position to sum
@@ -26,7 +30,7 @@ $(function main () {
   var GRIDCONSTANT = 3 * ((Math.pow(3, 2) + 1)/2);
 
   initializegridCells();
-  
+
   // make each grid gridCell.
   $('.gridCell').draggable({
     'snap': "#" + $(this).attr('id'),
@@ -35,7 +39,7 @@ $(function main () {
   });
 
   // draw the numeral objects in a random pile on the right side of the page (no where less than the window divided in half, & 150px or greater)
-    
+
   // initialize gridCell objects on the page.
   function initializegridCells() {
 
@@ -63,13 +67,26 @@ $(function main () {
       'cursor': 'move',
       'snap': '.gridCell',
       'snapMode': "inner",
+      // instead of an anonymous function here, define a function elsewhere, and call it here
+      // for more modular, easier to decipher code.
+      // that function could also be factored out into a couple of subfunctions for even more
+      // modularity and clarity. This also reduces the need for comments, by using descriptive function
+      // names. Your drag funciton could end up looking something like this:
+      // drag: dragFunction();
+
+      // function dragFunction(){
+      //   var $self = $(this);
+      //   var snapped = $self.data('ui-draggable').snapElements;
+      //   var snappedTo = getSnappingElements();
+      //   checkSnappedTo();
+      // }
       drag: function () {
-        
+
         var $self = $(this);
 
         /* Get the possible snap targets: */
         var snapped = $self.data('ui-draggable').snapElements;
-     
+
         /* Pull out only the snap targets that are "snapping": */
         var snappedTo = snapped.map(function(element) {
           return element.snapping ? element.item : null;
@@ -78,9 +95,13 @@ $(function main () {
         snappedTo.forEach(function (snappedElement) {
 
           if (snappedElement) {
+            // this line below is a doozy. Might be good to use some discriptive variables for readability here
+            // for example:
+            // var rectangleLeft = $self[0].getBoundingClientRect().left ... etc. then:
+            // if (rectangleLeft === squareLeft && rectangleTop === squareTop){
             if ($self[0].getBoundingClientRect().left === snappedElement.getBoundingClientRect().left && $self[0].getBoundingClientRect().top === snappedElement.getBoundingClientRect().top) {
               // replace the value from the draggable gridCell.
-              snappedElement.innerText = $self[0].innerText; 
+              snappedElement.innerText = $self[0].innerText;
               gridSums();
             }
           }
@@ -94,7 +115,7 @@ $(function main () {
   function randomPlacement (id) {
     var randomtop = Math.floor(Math.random() * (window.innerHeight/2 - 650));
     var randomleft = (468/2) + Math.floor(Math.random() * (window.innerWidth/24 + 500));
-    
+
     $(id).css({
       "margin-top": randomtop,
       "margin-left": randomleft
@@ -104,7 +125,7 @@ $(function main () {
   // Void -> Void
   // check the sums of the grid
   function gridSums () {
-    
+
     var topRow;
     var middleRow;
     var bottomRow;
@@ -121,7 +142,7 @@ $(function main () {
     bottomRow = calculate(rows[2]);
 
     leftColumn = calculate(columns[0]);
-    
+
     centerColumn = calculate(columns[1]);
 
     rightColumn = calculate(columns[2]);
@@ -132,12 +153,15 @@ $(function main () {
 
     // if they all equal each other, than the player wins
     if (equalsConstant(topRow, middleRow, bottomRow, leftColumn, centerColumn, rightColumn, diagonal1, diagonal2)) {
-
+      // nice factoring out of a function here.
       winScreen();
     }
   }
-
+  // this could be named better. checkForWin maybe?
   function equalsConstant () {
+    // in CS they use variable like flag, but we can be more specific here since
+    // this is a concrete example. what is it a flag for?
+    // can we name it "winner"? or something else more descriptive?
     var flag = false;
     var i = 0;
     var argLen = arguments.length;
@@ -154,6 +178,7 @@ $(function main () {
   }
 
   // Array -> Number
+  // What are we calculating? Can this be named better?
   function calculate (array) {
     var runningTotal = 0;
     array.forEach(function (id) {
@@ -161,8 +186,17 @@ $(function main () {
     });
     return runningTotal;
   }
-
+  // verb function names are best practice. "showWinScreen"
   function winScreen () {
     alert("You got it! Congratulations. You're smart and stuff... o(^_-)O");
   }
 });
+
+// All of the function definitions can be factored out of main(); and
+// called from inside of main. This is not universally thought of as best
+// practice, but to me it makes for clearer code. Try it out some time :)
+
+// Try some OOP JS too! Since you are a stronger student it would have been nice
+// to see some prototype patterns, or if you wanted to get fancy,
+// the utility pattern advocated by Kyle Simpson 8D
+// Once again great job over all. 
